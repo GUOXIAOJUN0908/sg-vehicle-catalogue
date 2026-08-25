@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="æµè§ˆå’Œç­›é€‰ sgCarMart æ–°åŠ å¡è½¦è¾†åˆ†ç±»ç›®å½•">
+  <meta name="description" content="浏览和筛选 sgCarMart 新加坡车辆分类目录">
   <title>SG Vehicle Catalogue</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -87,13 +87,13 @@ footer { max-width: 1320px; margin: 0 auto; padding: 28px clamp(20px, 4vw, 54px)
   <div class="page-shell">
     <header class="hero">
       <nav>
-        <a class="brand" href="#">SG<span>â€¢</span>CATALOGUE</a>
+        <a class="brand" href="#">SG<span>•</span>CATALOGUE</a>
         <span class="source-pill"><i></i> Data from sgCarMart</span>
       </nav>
       <div class="hero-copy">
         <p class="eyebrow">SINGAPORE VEHICLE DIRECTORY</p>
-        <h1>æ‰¾åˆ°é€‚åˆä½ çš„<br><em>ä¸‹ä¸€æ¬¾è½¦åž‹ã€‚</em></h1>
-        <p class="intro">ä»Žå®žæ—¶é‡‡é›†çš„è½¦è¾†ç›®å½•ä¸­ï¼ŒæŒ‰ç±»åˆ«ã€å“ç‰Œæˆ–åž‹å·å¿«é€ŸæŽ¢ç´¢ã€‚</p>
+        <h1>找到适合你的<br><em>下一款车型。</em></h1>
+        <p class="intro">从实时采集的车辆目录中，按类别、品牌或型号快速探索。</p>
       </div>
       <div class="hero-art" aria-hidden="true">
         <span>SG</span>
@@ -102,41 +102,41 @@ footer { max-width: 1320px; margin: 0 auto; padding: 28px clamp(20px, 4vw, 54px)
     </header>
 
     <main>
-      <section class="stats" aria-label="ç›®å½•ç»Ÿè®¡">
-        <article><strong id="type-count">â€”</strong><span>è½¦è¾†ç±»åˆ«</span></article>
-        <article><strong id="make-count">â€”</strong><span>æ±½è½¦å“ç‰Œ</span></article>
-        <article><strong id="model-count">â€”</strong><span>è½¦åž‹ç»„åˆ</span></article>
-        <article class="updated"><strong id="updated-at">â€”</strong><span>æ•°æ®æ›´æ–°æ—¶é—´</span></article>
+      <section class="stats" aria-label="目录统计">
+        <article><strong id="type-count">—</strong><span>车辆类别</span></article>
+        <article><strong id="make-count">—</strong><span>汽车品牌</span></article>
+        <article><strong id="model-count">—</strong><span>车型组合</span></article>
+        <article class="updated"><strong id="updated-at">—</strong><span>数据更新时间</span></article>
       </section>
 
       <section class="catalogue">
         <div class="section-heading">
-          <div><p class="eyebrow dark">EXPLORE THE CATALOGUE</p><h2>è½¦è¾†ç›®å½•</h2></div>
-          <p id="result-summary" aria-live="polite">æ­£åœ¨è¯»å–æ•°æ®â€¦</p>
+          <div><p class="eyebrow dark">EXPLORE THE CATALOGUE</p><h2>车辆目录</h2></div>
+          <p id="result-summary" aria-live="polite">正在读取数据…</p>
         </div>
 
         <div class="toolbar">
           <label class="search-field">
-            <span aria-hidden="true">âŒ•</span>
-            <input id="search" type="search" placeholder="æœç´¢å“ç‰Œæˆ–åž‹å·â€¦" autocomplete="off">
+            <span aria-hidden="true">⌕</span>
+            <input id="search" type="search" placeholder="搜索品牌或型号…" autocomplete="off">
           </label>
           <label>
-            <span>è½¦è¾†ç±»åˆ«</span>
-            <select id="type-filter"><option value="">å…¨éƒ¨ç±»åˆ«</option></select>
+            <span>车辆类别</span>
+            <select id="type-filter"><option value="">全部类别</option></select>
           </label>
           <label>
-            <span>å“ç‰Œ</span>
-            <select id="make-filter"><option value="">å…¨éƒ¨å“ç‰Œ</option></select>
+            <span>品牌</span>
+            <select id="make-filter"><option value="">全部品牌</option></select>
           </label>
-          <button id="clear-filters" type="button">é‡ç½®ç­›é€‰</button>
+          <button id="clear-filters" type="button">重置筛选</button>
         </div>
 
-        <div id="type-tabs" class="type-tabs" aria-label="æŒ‰è½¦è¾†ç±»åˆ«ç­›é€‰"></div>
+        <div id="type-tabs" class="type-tabs" aria-label="按车辆类别筛选"></div>
         <div id="catalog-grid" class="catalog-grid"></div>
         <div id="empty-state" class="empty-state" hidden>
-          <span>âŒ•</span><h3>æ²¡æœ‰æ‰¾åˆ°åŒ¹é…è½¦åž‹</h3><p>å°è¯•æ›´æ¢å…³é”®è¯æˆ–æ¸…é™¤ç­›é€‰æ¡ä»¶ã€‚</p>
+          <span>⌕</span><h3>没有找到匹配车型</h3><p>尝试更换关键词或清除筛选条件。</p>
         </div>
-        <button id="load-more" class="load-more" type="button" hidden>æ˜¾ç¤ºæ›´å¤š</button>
+        <button id="load-more" class="load-more" type="button" hidden>显示更多</button>
       </section>
     </main>
 
@@ -163,7 +163,7 @@ function renderTabs(types) {
   el('type-tabs').replaceChildren(...['', ...types].map(type => {
     const button = document.createElement('button');
     button.className = `type-tab${typeFilter.value === type ? ' active' : ''}`;
-    button.textContent = type || 'å…¨éƒ¨';
+    button.textContent = type || '全部';
     button.addEventListener('click', () => { typeFilter.value = type; state.visible = 24; applyFilters(); });
     return button;
   }));
@@ -183,14 +183,14 @@ function renderCards() {
   }));
   el('empty-state').hidden = state.filtered.length !== 0;
   el('load-more').hidden = state.visible >= state.filtered.length;
-  el('result-summary').textContent = `æ˜¾ç¤º ${Math.min(state.visible, state.filtered.length)} / ${state.filtered.length} æ¬¾è½¦åž‹`;
+  el('result-summary').textContent = `显示 ${Math.min(state.visible, state.filtered.length)} / ${state.filtered.length} 款车型`;
 }
 
 function applyFilters() {
   const query = search.value.trim().toLocaleLowerCase();
   const type = typeFilter.value;
   const makesForType = unique(state.records.filter(row => !type || row.vehicle_type === type), 'make');
-  setOptions(makeFilter, makesForType, 'å…¨éƒ¨å“ç‰Œ');
+  setOptions(makeFilter, makesForType, '全部品牌');
   const make = makeFilter.value;
   state.filtered = state.records.filter(row =>
     (!type || row.vehicle_type === type) &&
@@ -214,11 +214,11 @@ async function init() {
     el('make-count').textContent = unique(state.records, 'make').length;
     el('model-count').textContent = state.records.length.toLocaleString();
     el('updated-at').textContent = new Intl.DateTimeFormat('zh-CN', { dateStyle: 'medium' }).format(new Date(data.generated_at));
-    setOptions(typeFilter, unique(state.records, 'vehicle_type'), 'å…¨éƒ¨ç±»åˆ«');
-    setOptions(makeFilter, unique(state.records, 'make'), 'å…¨éƒ¨å“ç‰Œ');
+    setOptions(typeFilter, unique(state.records, 'vehicle_type'), '全部类别');
+    setOptions(makeFilter, unique(state.records, 'make'), '全部品牌');
     applyFilters();
   } catch (error) {
-    el('result-summary').textContent = 'æ•°æ®è¯»å–å¤±è´¥ï¼Œè¯·é€šè¿‡æœ¬åœ°æœåŠ¡å™¨æ‰“å¼€ç½‘é¡µã€‚';
+    el('result-summary').textContent = '数据读取失败，请通过本地服务器打开网页。';
     console.error(error);
   }
 }

@@ -203,6 +203,8 @@ const makeFilter = el('make-filter');
 const search = el('search');
 const money = value => new Intl.NumberFormat('en-SG', { style: 'currency', currency: 'SGD', maximumFractionDigits: 0 }).format(value);
 const COE_COLORS = { A: '#1677e8', B: '#e14b45', C: '#8b6b32', D: '#8257d6', E: '#16a269' };
+const TREND_CATEGORIES = ['A', 'B', 'E'];
+const TREND_COLORS = { A: '#806126', B: '#a33129', E: '#8e8370' };
 const COE_LABELS = {
   A: 'Cars ≤1,600cc / 130bhp', B: 'Cars >1,600cc / 130bhp',
   C: 'Goods vehicles & buses', D: 'Motorcycles', E: 'Open category'
@@ -332,7 +334,8 @@ function initCoe(data) {
   }));
 
   const exerciseKeys = [...new Set(records.map(row => `${row.month}-${row.bidding_no}`))].sort().slice(-24);
-  const series = Object.fromEntries(Object.entries(byCategory).map(([category, rows]) => {
+  const series = Object.fromEntries(TREND_CATEGORIES.map(category => {
+    const rows = byCategory[category];
     const byKey = new Map(rows.map(row => [`${row.month}-${row.bidding_no}`, row]));
     return [category, exerciseKeys.map(key => byKey.get(key) || null)];
   }));
@@ -354,7 +357,7 @@ function initCoe(data) {
       return [x, y];
     });
     chartPoints[category] = Object.fromEntries(validRows.map((row, index) => [row.chartIndex, pts[index]]));
-    return `<polyline points="${pts.map(p => p.join(',')).join(' ')}" fill="none" stroke="${COE_COLORS[category]}" stroke-width="3" vector-effect="non-scaling-stroke"/>`;
+    return `<polyline points="${pts.map(p => p.join(',')).join(' ')}" fill="none" stroke="${TREND_COLORS[category]}" stroke-width="3" vector-effect="non-scaling-stroke"/>`;
   }).join('');
   const xLabels = exerciseKeys.map((key, index) => {
     if (index % 4 !== 0 && index !== exerciseKeys.length - 1) return '';
@@ -379,8 +382,8 @@ function initCoe(data) {
     const date = new Intl.DateTimeFormat('en-SG', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${year}-${month}-01T00:00:00Z`));
     const values = Object.entries(series).filter(([,rows]) => rows[index]).map(([category,rows]) => ({ category, row: rows[index], point: chartPoints[category][index] }));
     guide.setAttribute('x1', x); guide.setAttribute('x2', x);
-    markers.innerHTML = values.map(({category,point}) => `<circle cx="${point[0]}" cy="${point[1]}" r="5" fill="white" stroke="${COE_COLORS[category]}" stroke-width="3"/>`).join('');
-    tooltip.innerHTML = `<strong>${date} · Bidding ${bid}</strong>${values.map(({category,row}) => `<span><i style="background:${COE_COLORS[category]}"></i>Cat ${category}<b>${money(row.premium)}</b></span>`).join('')}`;
+    markers.innerHTML = values.map(({category,point}) => `<circle cx="${point[0]}" cy="${point[1]}" r="5" fill="white" stroke="${TREND_COLORS[category]}" stroke-width="3"/>`).join('');
+    tooltip.innerHTML = `<strong>${date} · Bidding ${bid}</strong>${values.map(({category,row}) => `<span><i style="background:${TREND_COLORS[category]}"></i>Cat ${category}<b>${money(row.premium)}</b></span>`).join('')}`;
     crosshair.hidden = false; tooltip.hidden = false;
     const left = x / width * rect.width;
     tooltip.style.left = `${Math.min(Math.max(left, 105), rect.width - 105)}px`;
@@ -389,7 +392,7 @@ function initCoe(data) {
   svg.addEventListener('pointermove', showChartPoint);
   svg.addEventListener('pointerdown', showChartPoint);
   svg.addEventListener('pointerleave', () => { crosshair.hidden = true; tooltip.hidden = true; });
-  el('chart-legend').innerHTML = Object.entries(COE_COLORS).map(([category,color]) => `<span><i style="background:${color}"></i>Cat ${category}</span>`).join('');
+  el('chart-legend').innerHTML = TREND_CATEGORIES.map(category => `<span><i style="background:${TREND_COLORS[category]}"></i>Cat ${category}</span>`).join('');
 
   const previousPremium = {};
   const recent = [...records].reverse().slice(0, 30);

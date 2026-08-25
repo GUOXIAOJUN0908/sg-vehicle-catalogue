@@ -10,10 +10,10 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
 :root {
-  --ink: #0b2550;
-  --forest: #061c46;
-  --mint: #35c9ff;
-  --cream: #f2f6fc;
+  --ink: #102a56;
+  --forest: #071b42;
+  --mint: #52ddff;
+  --cream: #f4f7fc;
   --paper: #ffffff;
   --muted: #64738a;
   --line: #d8e1ed;
@@ -24,7 +24,9 @@ html { scroll-behavior: smooth; }
 body { margin: 0; color: var(--ink); background: var(--cream); font-family: "DM Sans", "Noto Sans SC", sans-serif; }
 button, input, select { font: inherit; }
 .page-shell { min-height: 100vh; overflow: hidden; }
-.hero { min-height: 500px; position: relative; overflow: hidden; color: white; background: radial-gradient(circle at 82% 20%, #124aa3 0, #082b68 28%, var(--forest) 66%); padding: 0 clamp(24px, 6vw, 92px); }
+.hero { min-height: 500px; position: relative; overflow: hidden; color: white; background: linear-gradient(125deg, #071936 0%, #0a347c 48%, #1268d8 100%); padding: 0 clamp(24px, 6vw, 92px); }
+.hero::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px); background-size: 56px 56px; -webkit-mask-image: linear-gradient(90deg, transparent 28%, #000 100%); mask-image: linear-gradient(90deg, transparent 28%, #000 100%); }
+.hero::after { content: ""; position: absolute; width: 520px; height: 520px; right: 5vw; top: -280px; border-radius: 50%; background: radial-gradient(circle, rgba(81,221,255,.34), rgba(30,126,255,.12) 45%, transparent 70%); filter: blur(2px); }
 nav { height: 84px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,.16); }
 .brand { display: flex; align-items: center; gap: 12px; color: white; text-decoration: none; }
 .brand-copy { display: flex; flex-direction: column; }
@@ -40,14 +42,13 @@ nav { height: 84px; display: flex; align-items: center; justify-content: space-b
 h1 { margin: 0; max-width: 670px; font-size: clamp(48px, 6.2vw, 84px); line-height: .99; letter-spacing: -.055em; }
 h1 em { color: #55cfff; font-family: Georgia, serif; font-weight: 400; }
 .intro { max-width: 470px; margin: 24px 0 0; color: #c7d5d0; font-size: 17px; line-height: 1.7; }
-.hero-art { position: absolute; right: -4vw; bottom: -65px; width: min(47vw, 650px); height: 355px; border: 1px solid rgba(53,201,255,.28); border-radius: 52% 0 0 0; transform: skewX(-9deg); }
-.hero-art::before, .hero-art::after { content: ""; position: absolute; border: 1px solid rgba(53,201,255,.18); border-radius: 50%; }
-.hero-art::before { width: 230px; height: 230px; right: 55px; top: 55px; }
-.hero-art::after { width: 90px; height: 90px; right: 125px; top: 125px; background: rgba(53,201,255,.08); }
-.hero-art span { position: absolute; right: 80px; top: 35px; color: rgba(53,201,255,.1); font-size: 190px; font-weight: 700; }
-.road-line { position: absolute; width: 120%; height: 2px; background: var(--mint); transform: rotate(-18deg); bottom: 125px; left: -10%; opacity: .45; }
+.hero-art { position: absolute; right: -3vw; bottom: -100px; width: min(48vw, 680px); height: 390px; border: 1px solid rgba(116,225,255,.26); border-radius: 58% 0 0 0; transform: skewX(-9deg); box-shadow: inset 50px 40px 100px rgba(29,137,255,.08); }
+.hero-art::before, .hero-art::after { content: ""; position: absolute; border: 1px solid rgba(123,225,255,.2); border-radius: 50%; }
+.hero-art::before { width: 270px; height: 270px; right: 45px; top: 30px; box-shadow: 0 0 70px rgba(72,210,255,.08); }
+.hero-art::after { width: 118px; height: 118px; right: 120px; top: 106px; background: radial-gradient(circle at 35% 30%, rgba(184,244,255,.2), rgba(67,177,255,.05)); }
+.road-line { position: absolute; width: 125%; height: 2px; background: linear-gradient(90deg, transparent, #71e4ff 30%, #d2f8ff 60%, transparent); transform: rotate(-18deg); bottom: 145px; left: -10%; opacity: .7; box-shadow: 0 0 16px rgba(82,221,255,.45); }
 main { max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 54px) 80px; }
-.stats { position: relative; z-index: 3; display: grid; grid-template-columns: repeat(4, 1fr); margin-top: -42px; background: var(--paper); border: 1px solid var(--line); box-shadow: 0 14px 45px rgba(25,47,42,.08); }
+.stats { position: relative; z-index: 3; display: grid; grid-template-columns: repeat(4, 1fr); margin-top: -42px; background: rgba(255,255,255,.97); border: 1px solid #dce5f1; box-shadow: 0 18px 50px rgba(17,55,112,.12); }
 .stats article { min-height: 120px; padding: 27px 30px; border-right: 1px solid var(--line); display: flex; flex-direction: column; justify-content: center; }
 .stats article:last-child { border: 0; }
 .stats strong { font-size: 32px; letter-spacing: -.04em; }
@@ -65,14 +66,14 @@ h2 { margin: 0; font-size: clamp(34px, 4vw, 52px); letter-spacing: -.045em; }
 .toolbar .search-field { flex-direction: row; align-items: center; gap: 11px; }
 .toolbar .search-field span { color: var(--ink); font-size: 26px; }
 .toolbar .search-field input { font-weight: 500; }
-#clear-filters { padding: 0 22px; color: white; background: var(--forest); border: 0; cursor: pointer; font-weight: 600; }
-#clear-filters:hover { background: #0b3f8e; }
+#clear-filters { padding: 0 22px; color: white; background: linear-gradient(135deg, #126ee8, #0849ae); border: 0; cursor: pointer; font-weight: 600; }
+#clear-filters:hover { background: linear-gradient(135deg, #2083fb, #0756ca); }
 .type-tabs { display: flex; gap: 8px; margin: 22px 0 28px; overflow-x: auto; padding-bottom: 5px; }
 .type-tab { flex: 0 0 auto; border: 1px solid #ccd1cb; background: transparent; color: #51625e; padding: 9px 15px; border-radius: 30px; cursor: pointer; font-size: 13px; font-weight: 600; }
-.type-tab.active { background: #1478f2; border-color: #1478f2; color: white; }
+.type-tab.active { background: linear-gradient(135deg, #1885fa, #0755c9); border-color: #1478f2; color: white; box-shadow: 0 5px 14px rgba(20,120,242,.22); }
 .catalog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 .model-card { position: relative; min-height: 280px; padding: 0 25px 25px; overflow: hidden; background: var(--paper); border: 1px solid var(--line); transition: transform .2s, box-shadow .2s; }
-.model-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(20,54,47,.09); }
+.model-card:hover { transform: translateY(-3px); border-color: #b7cbe6; box-shadow: 0 14px 30px rgba(21,70,139,.11); }
 .model-card::after { content: ""; }
 .model-card.image-error::after { content: attr(data-initial); position: absolute; right: 18px; bottom: -14px; color: #edf0e7; font-size: 82px; line-height: 1; font-weight: 700; z-index: 0; }
 .model-card > * { position: relative; z-index: 1; }
@@ -107,7 +108,6 @@ footer { max-width: 1320px; margin: 0 auto; padding: 28px clamp(20px, 4vw, 54px)
         <p class="intro">Explore Singapore's vehicle catalogue by body type, make, or model.</p>
       </div>
       <div class="hero-art" aria-hidden="true">
-        <span>XP</span>
         <div class="road-line"></div>
       </div>
     </header>

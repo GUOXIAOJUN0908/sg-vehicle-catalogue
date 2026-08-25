@@ -100,7 +100,7 @@ footer { max-width: 1320px; margin: 0 auto; padding: 28px clamp(20px, 4vw, 54px)
 .sparkline { height: 54px; margin: 0 -18px; background: linear-gradient(to top, color-mix(in srgb, var(--cat-color) 10%, transparent), transparent); }.sparkline svg { width: 100%; height: 100%; }.coe-card small { color: #8993a1; font-size: 10px; }
 .coe-chart-section, .coe-history-section { margin-top: 42px; }.chart-heading { display: flex; align-items: end; justify-content: space-between; margin-bottom: 14px; }.chart-heading h3, .coe-history-section h3 { margin: 0; font-size: 27px; }
 .chart-legend { display: flex; flex-wrap: wrap; gap: 14px; color: #657187; font-size: 11px; }.chart-legend span { display: flex; align-items: center; gap: 5px; }.chart-legend i { width: 9px; height: 9px; border-radius: 50%; }
-.coe-chart { padding: 18px; background: white; border: 1px solid #dbe3ee; }.coe-chart svg { display: block; width: 100%; max-height: 390px; }.chart-grid line { stroke: #dce4ee; stroke-dasharray: 4 5; }.chart-grid text { fill: #7b8798; font-size: 11px; }
+.coe-chart { position: relative; padding: 18px; background: white; border: 1px solid #dbe3ee; }.coe-chart svg { display: block; width: 100%; height: min(390px, 42vw); min-height: 280px; touch-action: none; }.chart-grid line { stroke: #dce4ee; stroke-dasharray: 4 5; }.chart-grid text { fill: #7b8798; font-size: 11px; }.x-axis-labels text { font-size: 10px; }.chart-hit-area { fill: transparent; cursor: crosshair; }.chart-crosshair line { stroke: #8091a9; stroke-width: 1; stroke-dasharray: 4 4; }.chart-tooltip { position: absolute; z-index: 5; width: 190px; padding: 12px 14px; transform: translateX(-50%); color: #233652; background: rgba(255,255,255,.97); border: 1px solid #cdd8e7; box-shadow: 0 10px 28px rgba(18,55,105,.16); pointer-events: none; font-size: 11px; }.chart-tooltip strong { display: block; margin-bottom: 8px; color: #0b2349; }.chart-tooltip span { display: grid; grid-template-columns: 10px 1fr auto; align-items: center; gap: 6px; padding: 3px 0; }.chart-tooltip i { width: 8px; height: 8px; border-radius: 50%; }.chart-tooltip b { color: #0b2349; }
 .table-wrap { margin-top: 14px; overflow-x: auto; background: white; border: 1px solid #dbe3ee; }.table-wrap table { width: 100%; border-collapse: collapse; white-space: nowrap; }.table-wrap th, .table-wrap td { padding: 13px 16px; border-bottom: 1px solid #e6ebf2; text-align: left; font-size: 12px; }.table-wrap th { color: #637188; background: #f8fafd; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }.cat-dot { display: inline-block; width: 7px; height: 7px; margin-right: 7px; border-radius: 50%; }.coe-source { color: #7a8798; font-size: 11px; }.coe-source a { color: #1764dc; }
 @media (max-width: 1050px) { .coe-cards { grid-template-columns: repeat(3,1fr); } }
 @media (max-width: 850px) { .stats { grid-template-columns: repeat(2,1fr); }.stats article:nth-child(2) { border-right: 0; }.stats article:nth-child(-n+2) { border-bottom: 1px solid var(--line); }.toolbar { grid-template-columns: 1fr 1fr; }.search-field { grid-column: 1 / -1; }.catalog-grid { grid-template-columns: repeat(2,1fr); }.hero-art { opacity: .55; }.coe-cards { grid-template-columns: repeat(2,1fr); } }
@@ -331,7 +331,12 @@ function initCoe(data) {
     return card;
   }));
 
-  const trendRows = Object.values(byCategory).flatMap(rows => rows.slice(-24));
+  const exerciseKeys = [...new Set(records.map(row => `${row.month}-${row.bidding_no}`))].sort().slice(-24);
+  const series = Object.fromEntries(Object.entries(byCategory).map(([category, rows]) => {
+    const byKey = new Map(rows.map(row => [`${row.month}-${row.bidding_no}`, row]));
+    return [category, exerciseKeys.map(key => byKey.get(key) || null)];
+  }));
+  const trendRows = Object.values(series).flat().filter(Boolean);
   const min = Math.min(...trendRows.map(row => row.premium));
   const max = Math.max(...trendRows.map(row => row.premium));
   const width = 900, height = 330, pad = 52;
@@ -340,11 +345,50 @@ function initCoe(data) {
     const value = Math.round(max - ratio * (max - min));
     return `<line x1="${pad}" y1="${y}" x2="${width-pad}" y2="${y}"/><text x="${pad-9}" y="${y+4}" text-anchor="end">$${Math.round(value/1000)}K</text>`;
   }).join('');
-  const lines = Object.entries(byCategory).map(([category, rows]) => {
-    const pts = pointsFor(rows.slice(-24), width, height, pad, min, max).map(p => p.join(',')).join(' ');
-    return `<polyline points="${pts}" fill="none" stroke="${COE_COLORS[category]}" stroke-width="3" vector-effect="non-scaling-stroke"/>`;
+  const chartPoints = {};
+  const lines = Object.entries(series).map(([category, rows]) => {
+    const validRows = rows.map((row, index) => row ? { ...row, chartIndex: index } : null).filter(Boolean);
+    const pts = validRows.map(row => {
+      const x = pad + row.chartIndex * ((width - pad * 2) / Math.max(exerciseKeys.length - 1, 1));
+      const y = height - pad - ((row.premium - min) / Math.max(max - min, 1)) * (height - pad * 2);
+      return [x, y];
+    });
+    chartPoints[category] = Object.fromEntries(validRows.map((row, index) => [row.chartIndex, pts[index]]));
+    return `<polyline points="${pts.map(p => p.join(',')).join(' ')}" fill="none" stroke="${COE_COLORS[category]}" stroke-width="3" vector-effect="non-scaling-stroke"/>`;
   }).join('');
-  el('coe-chart').innerHTML = `<svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet"><g class="chart-grid">${grid}</g><g>${lines}</g></svg>`;
+  const xLabels = exerciseKeys.map((key, index) => {
+    if (index % 4 !== 0 && index !== exerciseKeys.length - 1) return '';
+    const [year, month, bid] = key.split('-');
+    const x = pad + index * ((width - pad * 2) / Math.max(exerciseKeys.length - 1, 1));
+    const label = new Intl.DateTimeFormat('en-SG', { month: 'short', year: '2-digit', timeZone: 'UTC' }).format(new Date(`${year}-${month}-01T00:00:00Z`));
+    return `<text x="${x}" y="${height-18}" text-anchor="middle">${label} (${bid})</text>`;
+  }).join('');
+  el('coe-chart').innerHTML = `<svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none"><g class="chart-grid">${grid}<g class="x-axis-labels">${xLabels}</g></g><g>${lines}</g><g class="chart-crosshair" hidden><line x1="0" y1="${pad}" x2="0" y2="${height-pad}"/><g class="chart-markers"></g></g><rect class="chart-hit-area" x="${pad}" y="${pad}" width="${width-pad*2}" height="${height-pad*2}"/></svg><div class="chart-tooltip" hidden></div>`;
+  const chart = el('coe-chart');
+  const svg = chart.querySelector('svg');
+  const crosshair = chart.querySelector('.chart-crosshair');
+  const guide = crosshair.querySelector('line');
+  const markers = crosshair.querySelector('.chart-markers');
+  const tooltip = chart.querySelector('.chart-tooltip');
+  const showChartPoint = event => {
+    const rect = svg.getBoundingClientRect();
+    const viewX = (event.clientX - rect.left) / rect.width * width;
+    const index = Math.max(0, Math.min(exerciseKeys.length - 1, Math.round((viewX - pad) / (width - pad * 2) * (exerciseKeys.length - 1))));
+    const x = pad + index * ((width - pad * 2) / Math.max(exerciseKeys.length - 1, 1));
+    const [year, month, bid] = exerciseKeys[index].split('-');
+    const date = new Intl.DateTimeFormat('en-SG', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${year}-${month}-01T00:00:00Z`));
+    const values = Object.entries(series).filter(([,rows]) => rows[index]).map(([category,rows]) => ({ category, row: rows[index], point: chartPoints[category][index] }));
+    guide.setAttribute('x1', x); guide.setAttribute('x2', x);
+    markers.innerHTML = values.map(({category,point}) => `<circle cx="${point[0]}" cy="${point[1]}" r="5" fill="white" stroke="${COE_COLORS[category]}" stroke-width="3"/>`).join('');
+    tooltip.innerHTML = `<strong>${date} · Bidding ${bid}</strong>${values.map(({category,row}) => `<span><i style="background:${COE_COLORS[category]}"></i>Cat ${category}<b>${money(row.premium)}</b></span>`).join('')}`;
+    crosshair.hidden = false; tooltip.hidden = false;
+    const left = x / width * rect.width;
+    tooltip.style.left = `${Math.min(Math.max(left, 105), rect.width - 105)}px`;
+    tooltip.style.top = `${Math.max(8, event.clientY - rect.top - tooltip.offsetHeight - 16)}px`;
+  };
+  svg.addEventListener('pointermove', showChartPoint);
+  svg.addEventListener('pointerdown', showChartPoint);
+  svg.addEventListener('pointerleave', () => { crosshair.hidden = true; tooltip.hidden = true; });
   el('chart-legend').innerHTML = Object.entries(COE_COLORS).map(([category,color]) => `<span><i style="background:${color}"></i>Cat ${category}</span>`).join('');
 
   const previousPremium = {};

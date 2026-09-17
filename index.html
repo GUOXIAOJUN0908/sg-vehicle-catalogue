@@ -328,7 +328,7 @@ const search = el('search');
 const money = value => new Intl.NumberFormat('en-SG', { style: 'currency', currency: 'SGD', maximumFractionDigits: 0 }).format(value);
 const COE_COLORS = { A: '#1677e8', B: '#e14b45', C: '#8b6b32', D: '#8257d6', E: '#16a269' };
 const TREND_CATEGORIES = ['A', 'B', 'E'];
-const TREND_COLORS = { A: '#806126', B: '#a33129', E: '#8e8370' };
+const TREND_COLORS = COE_COLORS;
 const COE_LABELS = {
   A: 'Cars ≤1,600cc / 130bhp', B: 'Cars >1,600cc / 130bhp',
   C: 'Goods vehicles & buses', D: 'Motorcycles', E: 'Open category'

@@ -6,7 +6,7 @@
   <meta name="description" content="XSTAR 中国纯电汽车目录：厂商、品牌与代表性车型。">
   <title>中国 EV 品牌与车型 | XSTAR</title>
   <style>
-    :root{--ink:#172d4b;--muted:#68758a;--line:#dce3eb;--blue:#155bd7;--green:#087b64;--bg:#f5f7fa}
+    :root{--ink:#222;--muted:#666;--line:#e1e1e1;--blue:#0568ff;--blue-hover:#0056b3;--green:#087b64;--bg:#f8f8f8}
     *{box-sizing:border-box;letter-spacing:0}body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans","Noto Sans SC","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.5}
     a{color:var(--blue);text-underline-offset:4px}button,input,select{font:inherit}button,a,input,select{touch-action:manipulation}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #149e9b;outline-offset:3px}
     .topbar{background:#fff;border-bottom:1px solid var(--line)}.topbar-inner{max-width:1320px;margin:auto;min-height:76px;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:12px}.brand strong{font-size:23px}.brand small{display:block;color:var(--muted);font-size:10px}.x-logo{display:block;width:32px;height:32px;background:var(--blue);clip-path:polygon(0 0,30% 0,50% 32%,70% 0,100% 0,68% 50%,100% 100%,70% 100%,50% 68%,30% 100%,0 100%,32% 50%)}
@@ -21,6 +21,10 @@
     .empty{padding:70px 15px;text-align:center}.empty h2{font-size:19px}.empty p{color:var(--muted)}[hidden]{display:none!important}.note{margin:30px 0 0;padding-top:18px;border-top:1px solid var(--line);font-size:11px;line-height:1.9;color:var(--muted)}footer{max-width:1320px;margin:auto;padding:22px 32px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;color:var(--muted);font-size:11px}
     @media(max-width:1100px){.models{grid-template-columns:repeat(2,minmax(0,1fr))}.filters{grid-template-columns:1fr 1fr}.workspace{grid-template-columns:180px minmax(0,1fr);gap:22px}}
     @media(max-width:700px){.topbar-inner{padding:14px 18px;gap:16px}.topnav{gap:16px}.topnav a{font-size:11px}.brand strong{font-size:19px}.brand small{font-size:9px}main{padding:26px 18px 40px}.heading h1{font-size:26px}.heading{flex-wrap:wrap;gap:12px}.subtitle{font-size:12px}.stats{grid-template-columns:repeat(2,1fr);margin:22px 0}.stat,.stat:first-child{padding:16px 12px;border-bottom:1px solid var(--line)}.stat:nth-child(2){border-right:0}.stat:nth-child(3){border-bottom:0}.stat strong{font-size:25px}.stat:last-child strong{font-size:15px;line-height:30px}.workspace{display:block}.sidebar{padding:0;border:0;margin-bottom:20px}.sidebar h2{margin-bottom:8px}.brand-list{display:flex;overflow-x:auto;gap:6px;padding-bottom:8px}.brand-filter{flex:0 0 auto;width:auto;gap:10px;border:1px solid var(--line);background:#fff;min-height:38px;white-space:nowrap}.brand-filter small,.sidebar-note{display:none}.filters{gap:10px}.filters label:first-child{grid-column:1/-1}.reset{grid-column:1/-1;height:36px}.models{gap:10px}.model-body{padding:12px}.model h3{font-size:17px}.model dl div{display:block}.model dd{text-align:left;margin-top:2px}.model-meta{font-size:9px}.results-bar{gap:8px}.tabs{gap:16px}.tab{font-size:12px}#summary{font-size:11px}.directory-row{grid-template-columns:1fr auto;gap:12px}.directory-row>div:nth-child(2){grid-column:1/-1;grid-row:2}.directory-row h3{font-size:16px}footer{padding:20px 18px;flex-wrap:wrap}}
+    .eyebrow{color:var(--blue)}
+    .topnav a:hover,.model a:hover,.directory-row a:hover,footer a:hover{color:var(--blue-hover)}
+    .reset:hover,.directory-row button:hover{color:var(--blue-hover);border-color:var(--blue);background:#edf4ff}
+    button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline-color:var(--blue)}
     @media(max-width:360px){.models{grid-template-columns:1fr}.topnav{gap:9px}.x-logo{width:25px;height:25px}.brand{gap:7px}}
   </style>
 </head>

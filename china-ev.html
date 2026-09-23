@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="XSTAR 中国纯电汽车目录：厂商、品牌与代表性车型。">
+  <title>中国 EV 品牌与车型 | XSTAR</title>
+  <style>
+    :root{--ink:#172d4b;--muted:#68758a;--line:#dce3eb;--blue:#155bd7;--green:#087b64;--bg:#f5f7fa}
+    *{box-sizing:border-box;letter-spacing:0}body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans","Noto Sans SC","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.5}
+    a{color:var(--blue);text-underline-offset:4px}button,input,select{font:inherit}button,a,input,select{touch-action:manipulation}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #149e9b;outline-offset:3px}
+    .topbar{background:#fff;border-bottom:1px solid var(--line)}.topbar-inner{max-width:1320px;margin:auto;min-height:76px;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:12px}.brand strong{font-size:23px}.brand small{display:block;color:var(--muted);font-size:10px}.x-logo{display:block;width:32px;height:32px;background:var(--blue);clip-path:polygon(0 0,30% 0,50% 32%,70% 0,100% 0,68% 50%,100% 100%,70% 100%,50% 68%,30% 100%,0 100%,32% 50%)}
+    .topnav{display:flex;gap:24px;align-items:center}.topnav a{font-size:13px;text-decoration:none;color:var(--muted)}.topnav a[aria-current]{color:var(--blue);font-weight:700}
+    main{max-width:1320px;margin:auto;padding:36px 32px 60px}.heading{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}.eyebrow{margin:0 0 8px;color:var(--green);font-size:11px;font-weight:700}.heading h1{font-size:32px;line-height:1.25;margin:0}.subtitle{margin:12px 0 0;color:var(--muted);font-size:13px}.scope{white-space:nowrap;border:1px solid #a4d4c5;padding:5px 10px;color:var(--green);background:#edf8f4;font-size:12px}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);margin:28px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.stat{padding:20px 24px;border-right:1px solid var(--line)}.stat:first-child{padding-left:0}.stat:last-child{border:0}.stat strong{display:block;font-size:28px;line-height:1.2}.stat span{display:block;margin-top:7px;font-size:12px;color:var(--muted)}.stat:last-child strong{font-size:17px;line-height:34px}
+    .workspace{display:grid;grid-template-columns:210px minmax(0,1fr);gap:30px}.sidebar{border-right:1px solid var(--line);padding-right:20px}.sidebar h2{font-size:12px;color:var(--muted);margin:0 0 12px}.brand-list{display:grid;gap:4px}.brand-filter{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;min-height:42px;padding:8px 10px;text-align:left;border:0;background:transparent;color:#465773;border-radius:4px}.brand-filter:hover{background:#e9eef5}.brand-filter[aria-pressed=true]{background:#e7efff;color:var(--blue);font-weight:700}.brand-filter small{color:var(--muted);font-size:11px}.brand-count{font-size:11px;min-width:20px;text-align:right}.sidebar-note{border-top:1px solid var(--line);padding-top:16px;margin-top:22px;font-size:11px;color:var(--muted);line-height:1.8}
+    .filters{display:grid;grid-template-columns:minmax(170px,1.4fr) minmax(130px,1fr) minmax(110px,.8fr) auto;gap:12px;align-items:end}.filters label{display:flex;flex-direction:column;gap:6px;font-size:11px;color:var(--muted)}.filters input,.filters select{width:100%;min-width:0;height:42px;padding:0 10px;color:var(--ink);border:1px solid #cbd6e2;border-radius:4px;background:#fff;font-size:13px}.reset{height:42px;border:1px solid #cbd6e2;background:#fff;border-radius:4px;padding:0 12px;color:var(--blue);font-size:12px}
+    .results-bar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin:23px 0 16px;border-bottom:1px solid var(--line)}.tabs{display:flex;gap:22px}.tab{border:0;border-bottom:2px solid transparent;background:none;color:var(--muted);padding:10px 0;font-size:13px}.tab[aria-selected=true]{border-color:var(--blue);color:var(--blue);font-weight:700}#summary{font-size:12px;color:var(--muted);margin:0 0 6px}
+    .models{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.model{min-width:0;border:1px solid var(--line);border-radius:6px;background:#fff;overflow:hidden}.photo{position:relative;aspect-ratio:16/10;background:#eaf0f4;overflow:hidden;display:grid;place-content:center;text-align:center;color:#8090a0}.photo img{width:100%;height:100%;position:absolute;inset:0;object-fit:contain;background:#fff}.photo strong{font-size:22px;font-weight:500}.photo small{font-size:10px;margin-top:5px}.model-body{padding:16px}.model-meta{display:flex;justify-content:space-between;gap:8px;font-size:10px;color:var(--muted)}.bev{color:var(--green);font-weight:700}.model h3{font-size:19px;margin:8px 0 1px;overflow-wrap:anywhere}.local-name{font-size:12px;color:var(--muted);margin:0;min-height:18px}.model dl{margin:15px 0;font-size:11px;border-top:1px solid #edf0f4;padding-top:10px}.model dl div{display:flex;justify-content:space-between;gap:8px;margin:5px 0}.model dt{color:var(--muted);flex-shrink:0}.model dd{margin:0;text-align:right}.model a{font-size:11px;text-decoration:none}.model a:hover{text-decoration:underline}
+    .directory-row{padding:20px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:150px 1fr auto;gap:20px;align-items:start}.directory-row h3{margin:0;font-size:17px}.directory-row small{color:var(--muted)}.directory-row p{margin:4px 0 0;font-size:12px}.directory-row button{background:#fff;border:1px solid #cbd6e2;border-radius:4px;color:var(--blue);padding:8px 12px;font-size:12px;white-space:nowrap}.directory-row .manufacturer{color:var(--green)}
+    .empty{padding:70px 15px;text-align:center}.empty h2{font-size:19px}.empty p{color:var(--muted)}[hidden]{display:none!important}.note{margin:30px 0 0;padding-top:18px;border-top:1px solid var(--line);font-size:11px;line-height:1.9;color:var(--muted)}footer{max-width:1320px;margin:auto;padding:22px 32px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;color:var(--muted);font-size:11px}
+    @media(max-width:1100px){.models{grid-template-columns:repeat(2,minmax(0,1fr))}.filters{grid-template-columns:1fr 1fr}.workspace{grid-template-columns:180px minmax(0,1fr);gap:22px}}
+    @media(max-width:700px){.topbar-inner{padding:14px 18px;gap:16px}.topnav{gap:16px}.topnav a{font-size:11px}.brand strong{font-size:19px}.brand small{font-size:9px}main{padding:26px 18px 40px}.heading h1{font-size:26px}.heading{flex-wrap:wrap;gap:12px}.subtitle{font-size:12px}.stats{grid-template-columns:repeat(2,1fr);margin:22px 0}.stat,.stat:first-child{padding:16px 12px;border-bottom:1px solid var(--line)}.stat:nth-child(2){border-right:0}.stat:nth-child(3){border-bottom:0}.stat strong{font-size:25px}.stat:last-child strong{font-size:15px;line-height:30px}.workspace{display:block}.sidebar{padding:0;border:0;margin-bottom:20px}.sidebar h2{margin-bottom:8px}.brand-list{display:flex;overflow-x:auto;gap:6px;padding-bottom:8px}.brand-filter{flex:0 0 auto;width:auto;gap:10px;border:1px solid var(--line);background:#fff;min-height:38px;white-space:nowrap}.brand-filter small,.sidebar-note{display:none}.filters{gap:10px}.filters label:first-child{grid-column:1/-1}.reset{grid-column:1/-1;height:36px}.models{gap:10px}.model-body{padding:12px}.model h3{font-size:17px}.model dl div{display:block}.model dd{text-align:left;margin-top:2px}.model-meta{font-size:9px}.results-bar{gap:8px}.tabs{gap:16px}.tab{font-size:12px}#summary{font-size:11px}.directory-row{grid-template-columns:1fr auto;gap:12px}.directory-row>div:nth-child(2){grid-column:1/-1;grid-row:2}.directory-row h3{font-size:16px}footer{padding:20px 18px;flex-wrap:wrap}}
+    @media(max-width:360px){.models{grid-template-columns:1fr}.topnav{gap:9px}.x-logo{width:25px;height:25px}.brand{gap:7px}}
+  </style>
+</head>
+<body>
+  <header class="topbar"><div class="topbar-inner">
+    <a class="brand" href="index.html" aria-label="XSTAR 首页"><span class="x-logo" aria-hidden="true"></span><span><strong>XSTAR</strong><small>xstar.technology</small></span></a>
+    <nav class="topnav" aria-label="网站导航"><a href="index.html">Singapore Catalogue</a><a href="china-ev.html" aria-current="page">China EV</a></nav>
+  </div></header>
+  <main>
+    <div class="heading"><div><p class="eyebrow">XSTAR / CHINA EV DIRECTORY</p><h1>中国 EV 品牌与车型</h1><p class="subtitle">中国品牌 · 汽车厂商 · 代表性纯电车型</p></div><span class="scope">BEV · 纯电动</span></div>
+    <section class="stats" aria-label="目录收录统计"><div class="stat"><strong id="group-count">—</strong><span>收录厂商 / 集团</span></div><div class="stat"><strong id="brand-count">—</strong><span>收录品牌</span></div><div class="stat"><strong id="model-count">—</strong><span>代表性车型</span></div><div class="stat"><strong>2026-09-23</strong><span>资料核对日期</span></div></section>
+    <div class="workspace">
+      <aside class="sidebar"><h2>品牌 / BRANDS</h2><div id="brand-list" class="brand-list" aria-label="品牌筛选"></div><p class="sidebar-note">收录中国品牌的代表性乘用车。厂商按品牌所属集团或独立车企归类，合资企业单列。</p></aside>
+      <section aria-label="中国 EV 目录">
+        <div class="filters"><label>搜索<input id="search" type="search" placeholder="品牌、厂商或车型" autocomplete="off"></label><label>厂商 / 集团<select id="group"><option value="">全部厂商</option></select></label><label>车身类型<select id="body"><option value="">全部类型</option></select></label><button id="reset" class="reset" type="button">重置筛选</button></div>
+        <div class="results-bar"><div class="tabs" role="tablist" aria-label="目录视图"><button id="models-tab" class="tab" role="tab" aria-selected="true" aria-controls="models-panel">车型目录</button><button id="brands-tab" class="tab" role="tab" aria-selected="false" aria-controls="brands-panel" tabindex="-1">品牌与厂商</button></div><p id="summary" role="status" aria-live="polite"></p></div>
+        <div id="models-panel" role="tabpanel" aria-labelledby="models-tab"><div id="models" class="models"></div></div>
+        <div id="brands-panel" role="tabpanel" aria-labelledby="brands-tab" hidden><div id="directory"></div></div>
+        <div id="empty" class="empty" hidden><h2>没有找到匹配车型</h2><p>当前筛选条件下暂无收录。</p><button id="empty-reset" type="button" class="reset">重置筛选</button></div>
+        <p class="note">收录范围：代表性车型目录，非全量在售清单，不代表新加坡上市或销售状态。带 EV / BEV 标记的条目仅指纯电版本，不包含同名插混、增程版本。车型名称可能因市场不同而变化。车型资料见各条目的官方来源；已有车辆照片来自原站 Sgcarmart 目录，仅作车型外观参考，不代表具体年款或配置。</p>
+      </section>
+    </div>
+    <noscript><p>请启用 JavaScript 以查看品牌、厂商与车型目录。</p></noscript>
+  </main>
+  <footer><span>XSTAR · China EV Directory</span><a href="index.html">返回新加坡车辆目录</a></footer>
+  <script>
+    const brands = [
+      {id:'byd',name:'比亚迪',en:'BYD',group:'比亚迪集团',url:'https://www.byd.com/uk/electric-cars'},
+      {id:'denza',name:'腾势',en:'DENZA',group:'比亚迪集团',url:'https://www.denza.com/cn/product-detail/z9gt'},
+      {id:'zeekr',name:'极氪',en:'ZEEKR',group:'吉利控股集团',url:'https://www.zeekrlife.com/global/'},
+      {id:'geely',name:'吉利',en:'GEELY',group:'吉利控股集团',url:'https://www.geely.com/en/models/ex5'},
+      {id:'nio',name:'蔚来',en:'NIO',group:'蔚来汽车',url:'https://www.nio.com/et5'},
+      {id:'xpeng',name:'小鹏',en:'XPENG',group:'小鹏汽车',url:'https://www.xpeng.com/'},
+      {id:'aion',name:'埃安',en:'AION',group:'广汽集团',url:'https://www.gacgroup.com/en/suv/aion-y'},
+      {id:'leapmotor',name:'零跑',en:'LEAPMOTOR',group:'零跑汽车',url:'https://www.leapmotor.com/'},
+      {id:'xiaomi',name:'小米',en:'XIAOMI',group:'小米集团',url:'https://www.mi.com/global/discover/article?id=5174'},
+      {id:'ora',name:'欧拉',en:'ORA',group:'长城汽车',url:'https://www.gwm-global.com/news/3402874.html'},
+      {id:'im',name:'智己',en:'IM MOTORS',group:'上汽集团',url:'https://www.immotors.com/website/l6_detail'},
+      {id:'wuling',name:'五菱',en:'WULING',group:'上汽通用五菱（合资）',url:'https://www.gm.com.cn/zh/home/innovation/in-china-for-china.html'}
+    ];
+    // Each record describes a model family or an explicitly identified BEV variant.
+    const records = [
+      ['byd','DOLPHIN','海豚','两厢车','202606/1514323'],
+      ['byd','SEAL','海豹','轿车','202501/1367489'],
+      ['byd','ATTO 3','元 PLUS / 海外名称 ATTO 3','SUV','202508/1430222', 'https://media.byd.com/section/models/pure-electric/atto-3/?lang=eng'],
+      ['denza','D9 EV','腾势 D9 纯电版','MPV','202601/1465181','https://www.denza.com/my/car-config-d9.html'],
+      ['denza','Z9GT BEV','腾势 Z9GT 纯电版','旅行车',''],
+      ['zeekr','001','极氪 001','旅行车',''],
+      ['zeekr','009','极氪 009','MPV','202602/1473416'],
+      ['zeekr','X','极氪 X','SUV','202604/1496718'],
+      ['geely','EX5','吉利 EX5 纯电版','SUV',''],
+      ['nio','ET5','蔚来 ET5','轿车',''],
+      ['nio','ET5 Touring','蔚来 ET5T','旅行车','','https://www.nio.com/et5-touring'],
+      ['nio','EL6 / ES6','蔚来 ES6 / 海外名称 EL6','SUV','','https://www.nio.com/el6'],
+      ['xpeng','G6','小鹏 G6','SUV','202601/1468019'],
+      ['xpeng','G9','小鹏 G9','SUV',''],
+      ['xpeng','X9 BEV','小鹏 X9 纯电版','MPV','202605/1504180'],
+      ['aion','AION Y','埃安 Y','SUV','202608/1531538'],
+      ['aion','AION V','埃安 V','SUV','202608/1531695','https://www.gacgroup.com/en/news/article/12-23'],
+      ['leapmotor','C10 BEV','零跑 C10 纯电版','SUV','202609/1533785'],
+      ['leapmotor','T03','零跑 T03','两厢车',''],
+      ['xiaomi','SU7','小米 SU7','轿车','','https://www.mi.com/global/discover/article?id=6117'],
+      ['xiaomi','YU7','小米 YU7','SUV',''],
+      ['ora','ORA 03','欧拉好猫 / 海外名称 ORA 03','两厢车','202607/1518682'],
+      ['im','L6','智己 L6','轿车',''],
+      ['im','LS6 BEV','智己 LS6 纯电版','SUV','','https://www.immotors.com/website/news_detail/239'],
+      ['wuling','Hongguang MINIEV','宏光 MINIEV','两厢车',''],
+      ['wuling','Bingo','五菱缤果','两厢车','']
+    ].map(([brand,model,local,body,photo,source]) => ({brand,model,local,body,image:photo?`china-ev-assets/${photo.split('/')[1]}.jpg`:'',source}));
+    const $ = id => document.getElementById(id);
+    const brandById = new Map(brands.map(brand => [brand.id,brand]));
+    let selectedBrand = '';
+    let activeTab = 'models';
+    const normalize = value => value.normalize('NFKC').toLocaleLowerCase().replace(/\s+/g,' ').trim();
+    function node(tag,className,text){const element=document.createElement(tag);if(className)element.className=className;if(text!==undefined)element.textContent=text;return element;}
+    function sourceLink(url,label){const link=node('a','',label);link.href=url;link.target='_blank';link.rel='noopener noreferrer';return link;}
+    function renderBrandFilters(){
+      $('brand-list').replaceChildren(...[{id:'',name:'全部品牌',en:''},...brands].map(brand=>{
+        const button=node('button','brand-filter');button.type='button';button.setAttribute('aria-pressed',String(brand.id===selectedBrand));
+        const label=node('span','',brand.name);if(brand.en)label.append(node('small','',` / ${brand.en}`));
+        button.append(label,node('span','brand-count',String(records.filter(row=>!brand.id||row.brand===brand.id).length)));
+        button.addEventListener('click',()=>{selectedBrand=brand.id;render();});return button;
+      }));
+    }
+    function modelCard(row){
+      const brand=brandById.get(row.brand);const card=node('article','model');const photo=node('div','photo');
+      const fallback=()=>{photo.replaceChildren(node('strong','',brand.en),node('small','','暂无车型图片'));};fallback();
+      if(row.image){const img=node('img');img.alt=`${brand.name} ${row.model} 外观参考`;img.loading='lazy';img.decoding='async';img.referrerPolicy='no-referrer';img.addEventListener('error',fallback,{once:true});img.addEventListener('load',()=>{photo.querySelectorAll('strong,small').forEach(el=>el.remove());},{once:true});img.src=row.image;photo.append(img);}
+      const body=node('div','model-body');const meta=node('div','model-meta');meta.append(node('span','',`${brand.name} / ${brand.en}`),node('span','bev','BEV'));
+      const details=node('dl');for(const [label,value] of [['厂商 / 集团',brand.group],['车身类型',row.body]]){const item=node('div');item.append(node('dt','',label),node('dd','',value));details.append(item);}
+      body.append(meta,node('h3','',row.model),node('p','local-name',row.local),details,sourceLink(row.source||brand.url,'官方资料 ↗'));card.append(photo,body);return card;
+    }
+    function render(){
+      const query=normalize($('search').value);const group=$('group').value;const body=$('body').value;
+      const filtered=records.filter(row=>{const brand=brandById.get(row.brand);return (!selectedBrand||row.brand===selectedBrand)&&(!group||brand.group===group)&&(!body||row.body===body)&&normalize(`${brand.name} ${brand.en} ${brand.group} ${row.model} ${row.local} ${row.body}`).includes(query);});
+      const matchingBrands=brands.filter(brand=>filtered.some(row=>row.brand===brand.id));
+      $('summary').textContent=`${matchingBrands.length} 个品牌 · ${filtered.length} 款车型`;
+      $('models').replaceChildren(...filtered.map(modelCard));
+      $('directory').replaceChildren(...matchingBrands.map(brand=>{
+        const item=node('article','directory-row');const name=node('div');name.append(node('h3','',brand.name),node('small','',brand.en));
+        const detail=node('div');detail.append(node('p','manufacturer',brand.group),node('p','',filtered.filter(row=>row.brand===brand.id).map(row=>row.model).join(' · ')),sourceLink(brand.url,'品牌官方资料 ↗'));
+        const button=node('button','', '查看车型');button.type='button';button.setAttribute('aria-label',`查看${brand.name}车型`);button.addEventListener('click',()=>{selectedBrand=brand.id;setTab('models');render();$('models-tab').focus();});item.append(name,detail,button);return item;
+      }));
+      $('empty').hidden=filtered.length>0;renderBrandFilters();
+    }
+    function setTab(tab){activeTab=tab;for(const name of ['models','brands']){const selected=name===tab;$(name+'-tab').setAttribute('aria-selected',String(selected));$(name+'-tab').tabIndex=selected?0:-1;$(name+'-panel').hidden=!selected;}}
+    function reset(){selectedBrand='';$('search').value='';$('group').value='';$('body').value='';render();}
+    $('group-count').textContent=new Set(brands.map(brand=>brand.group)).size;
+    $('brand-count').textContent=brands.length;$('model-count').textContent=records.length;
+    for(const group of [...new Set(brands.map(brand=>brand.group))])$('group').append(new Option(group,group));
+    for(const body of [...new Set(records.map(row=>row.body))])$('body').append(new Option(body,body));
+    $('search').addEventListener('input',render);for(const id of ['group','body'])$(id).addEventListener('change',render);
+    for(const id of ['reset','empty-reset'])$(id).addEventListener('click',reset);
+    for(const name of ['models','brands'])$(name+'-tab').addEventListener('click',()=>setTab(name));
+    document.querySelector('.tabs').addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;event.preventDefault();setTab(event.key==='Home'?'models':event.key==='End'?'brands':activeTab==='models'?'brands':'models');$(activeTab+'-tab').focus();});
+    render();
+  </script>
+</body>
+</html>

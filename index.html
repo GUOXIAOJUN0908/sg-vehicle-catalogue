@@ -161,8 +161,17 @@ main{max-width:1380px;padding-top:0}
 .brand-sales-section thead th{position:sticky;top:0;background:#fff;z-index:1}
 .brand-sales-row b{color:#102f54;background:#ffffffed;padding:1px 4px;border-radius:3px;text-shadow:none}
 /* Brand colors from xstar.sg/partner-with-us. */
-.hero{background:var(--brand-blue)}
+.hero{min-height:480px;background:#4b7894 url("assets/byd-sealion-7-desktop.webp") no-repeat right center;background-size:auto 115%;isolation:isolate}
+.hero>nav{position:relative;z-index:2}
+.hero .hero-copy{padding-top:46px}
+.hero .hero-copy h1{max-width:580px;font-size:60px}
+.hero-model{position:absolute;right:clamp(22px,4vw,64px);bottom:20px;z-index:2;color:#fff;font-size:12px;font-weight:700;text-decoration:none;text-shadow:0 1px 5px #172d4b}
+.hero-model:hover{text-decoration:underline}
+.hero{background-image:linear-gradient(90deg,#132d43 0%,#132d43 38%,rgba(7,27,50,.12) 65%,transparent 78%),url("assets/byd-sealion-7-desktop.webp");background-size:100% 100%,auto 115%}
+@media(min-width:1800px){.hero{background-size:100% 100%,auto 135%;background-position:center,right center}}
+@media(max-width:850px){.hero{min-height:560px;background-image:linear-gradient(180deg,rgba(7,27,50,.86),rgba(7,27,50,.45) 36%,transparent 60%),url("assets/byd-sealion-7-mobile.webp");background-size:cover;background-position:center,center 58%}.hero .hero-copy{padding-top:24px}.hero .hero-copy h1{font-size:40px;max-width:420px}.hero .hero-copy .intro{font-size:13px;max-width:330px;margin-top:12px}.hero-model{bottom:18px}}
 .hero::before,.hero::after{display:none}
+@media(max-width:850px){.hero .hero-copy{position:static}.hero .hero-copy .intro{position:absolute;left:22px;bottom:58px;max-width:330px;margin:0;text-shadow:0 1px 5px #172d4b}}
 .hero .eyebrow,.hero h1 em,.hero .intro,.hero .brand-copy small,.hero .source-pill{color:#fff}
 .hero .x-logo i,.hero .x-logo b{background:#fff}
 .source-pill i{background:#fff;box-shadow:0 0 0 5px rgba(255,255,255,.15)}
@@ -209,9 +218,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
         <h1>Explore the road<br><em>ahead.</em></h1>
         <p class="intro">Explore Singapore's vehicle catalogue by body type, make, or model.</p>
       </div>
-      <div class="hero-art" aria-hidden="true">
-        <div class="road-line"></div>
-      </div>
+      <a class="hero-model" href="https://bydcars.sg/byd-sealion-7" target="_blank" rel="noopener noreferrer">BYD SEALION 7</a>
     </header>
 
     <main>
